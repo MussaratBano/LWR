@@ -1,0 +1,134 @@
+*{
+    margin:0;
+    background-color: black;
+    color:white;
+}
+
+ul{
+    display:flex;
+    background-color:#5C4033;
+    justify-content:space-around;
+}
+a{
+    text-decoration: none;
+    color: white;
+    background-color:rgb(42, 53, 100);
+}
+li{
+    list-style-type: none;
+    display: inline;
+}
+.border{
+    border:1.5px solid transparent;
+}
+.border:hover{
+    border: 1.5px solid white;
+}
+#pic{
+    height: 200px;
+    width: 400px;
+    border-radius: 50%;
+    background-image: url("https://tse1.mm.bing.net/th?id=OIP.eWX5prnrftBBQR0MD_8vVgHaEO&pid=Api&P=0&h=220");
+    background-size: auto;
+}
+.code0{
+    background-color: white;
+    color:black;
+    width: 450px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code1{
+    background-color: white;
+    color:black;
+    width: 550px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code2{
+    background-color: white;
+    color:black;
+    width: 500px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code3{
+    background-color: white;
+    color:black;
+    width: 700px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code4{
+    background-color: white;
+    color:black;
+    width: 720px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code5{
+    background-color: white;
+    color:black;
+    width: 660px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code6{
+    background-color: white;
+    color:black;
+    width: 730px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code7{
+    background-color: white;
+    color:black;
+    width: 730px;
+    margin-left: 15%;
+    border-color:black;
+}
+.code8{
+    background-color: white;
+    color:black;
+    width: 750px;
+    margin-left: 15%;
+    border-color:black;
+}
+.footpanel1{
+    text-align: center;
+    background-color: #5C4033;
+}
+.site-footer {
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px 0;
+        margin-top: 40px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .footer-link {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: #3498db;
+    }
+
+    .footer-link i {
+        font-size: 1.2em;
+    }

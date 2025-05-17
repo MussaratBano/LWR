@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LWR Maple code</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel=" stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a name = "home"></a>
+    <!--Navigation-->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul> 
+                <div class="border"><li><a href="#home">Home</a></li></div>
+                <div class="border"><li><a href="#algorithm">Algorithm</a></li></div>
+                <div class="border"><li><a href="#code">Code Snippets</a></li></div>
+                <div class="border"><li><a href="#contact">Contact</a></li></div>
+            </ul>
+        </div>
+    </nav>
+    </header>
+    <section>
+        <!--Introduction-->
+    <br><br>
+    <h1>Learning With Rounding Algorithm</h1>
+    <p>(A Post-Quantum Cryptographic Solution)</p>
+    <div id="pic"></div>
+    </section>
+    <br><br>
+    <section>
+        <a name="algorithm"></a>
+<h2><u>Algorithm</u></h2>
+<br>
+<h3 style="color:style="color:#CCCCCC;">Steps:</h3>
+<ol>
+    <li>1. Define Parameters</li>
+    <br>
+    <li>2. Generate the Secret Vector</li>
+    <br>
+    <li>3. Generate Samples</li>
+    <br>
+    <li>4. Formulate the LWR Problem</li>
+    <br>
+    <li>5. SetUp Linear Equations</li>
+    <br>
+    <li>6. Solve for the Secret Vector</li>
+    <li></li>
+</ol>
+<br>
+<h4 style="color:style="color:#CCCCCC;">Error Correction:</h4>
+<pre>
+              <strong>i. Gaussian Elimination:</strong> Systematic row reduction to solve for s.
+             <strong> ii.Lattice Reduction Techniques:</strong> Algorithms like LLL(Lenstra–Lenstra–Lova´sz)
+                 to find approximate solutions.
+
+</pre>
+   </section>
+<br><br>
+<section>
+    <!--Implementation-->
+    <a name="code"> </a>
+    <h2><u>Implementation in Maple</u></h2>
+    <br>
+    <h4 style="color:style="color:#CCCCCC;"><u>Code Snippets:</u></h4>
+    <pre>
+        <code class="language-maple">
+        <div class="code0">
+        <p style ="color:rgba(190, 223, 45, 0.936);background-color: white;">
+        # ==============================================
+        # Learning With Rounding (LWR) ALgorithm.
+        # ==============================================
+        </p>
+        restart;
+        with(LinearAlgebra):
+        </div>
+        </code>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step1: Defining Parameters:</i> </h4>
+    <pre>
+        <code class="language-maple">
+        <div class="code1">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Read Parameters Interactively
+        </p>
+        n := readstat("Enter the dimension (n) of the secret vector: "):
+        q := readstat("Enter the prime modulus (q): "):
+        m := readstat("Enter the number of samples (m) to generate: "):
+        alpha := readstat("Enter the scaling factor (alpha): "): 
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Validate parameters
+        </p>  
+        if not isprime(q) then
+            error "Modulus q must be a prime number.";
+        elif m < n then
+            error "Number of samples m must be >= dimension n.";
+        elif alpha <= 0 then
+            error "Scaling factor alpha must be positive.";
+        end if; 
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Display Parameters
+        </p>  
+        printf("\n=== Parameters ===\n");
+        printf("--------------------\n");
+        printf("The dimension n of secret vector: %d\n",n);
+        printf("The prime modulus q: %d\n",q);
+        printf("The number of samples m to generate: %d\n",m);
+        printf("The scaling factor : %f\n",alpha);
+       </div>
+       </code>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step2: Generate Secret Vector s:</i></h4>
+    <pre><code class="language-maple">
+        <div class="code2">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Secret vector in Zn_q
+        </p>
+        s := RandomVector(n, generator=rand(0..q-1)); 
+        printf("Secret vector s: %a\n", convert(s,list));
+        </div>
+        </code>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step3: Generate Random Samples:</i></h4>
+    <pre><code class="language-maple">
+        <div class="code3">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Generating random matrix A
+        </p>
+        A := RandomMatrix(m, n, generator=rand(0..q-1)):
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Generate small error vector E ∈ {-1, 0, 1}^m (uniform distribution)
+        </p>
+        E := RandomVector(m, generator=rand(-1..1)):  # Small random noise
+        printf("Random Matrix A:\n");
+        print(A);
+        printf("Error vector E: %a\n",convert(E,list));
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Compute b values using rounding.
+        </p>
+        b := map(x -> floor((x + 0.5)), (A . s + E) / alpha):  
+        printf("Rounded Vector b: %a\n",convert(b,list));
+
+        printf("\n=== Generated Samples ===\n");
+        for i from 1 to m do
+            printf("Sample %d: a = %a, e = %d, b = %d\n", i, convert(A[i], list), E[i], b[i]);
+        end do;
+        </div>
+        </code>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step4: Formulate the LWR problem:</i></h4>
+    <pre><code class="language-maple">
+        <div class="code4">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # The sample set S = {(a_i, b_i)} is obtained,the goal is to recover 
+        # the secret vector s given this set of noisy linear equations.
+        </p>
+        printf("\n=== The Sample set S = {(a1,b1),(a2,b2),....,(am,bm)} have elements:  ===\n\n");
+        for i from 1 to m do
+            printf("(a%d,b%d)  = (%a, %d)\n",i,i, convert(A[i], list), b[i]):
+        end do;
+        </div>
+        </code>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step5: SetUp Linear Equations:</i></h4>
+    <pre><code class="language-maple">
+        <div class="code5">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Rearrange b_i to b'_i = (b_i - 0.5) * alpha
+        # Compute modified b values
+        </p>
+        b_prime := A.s + E; 
+        printf("Modified b vector (b'): %a\n",convert(b_prime,list));
+
+        printf("\n=== Matrix Representation ===\n\n");
+        printf("The system can be written as:\n"); 
+        printf("					          A  . s + E  = b_prime");
+        </div>
+        </code>
+    </pre>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step6(i): Solve for the Secret Vector(Using Gaussian Elimination):</i></h4>
+    <pre><code class="language-maple">
+        <div class="code6">
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        #If we know the Error Vector
+        # System: A.s = B' - E => A.s = B
+        </p>
+        B := b_prime - E;
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Augmented Matrix 
+        </p>
+        M := A|B;
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Solving the system in the field Z_q 
+        </p>
+        s1:= LinearAlgebra[Modular][LinearSolve](q, M, 1);
+        printf("Recovered Secret Vector s (Gaussian Elimination): %a\n",convert(s1[1..n,n+1],list));
+        
+        </div>
+        </code>
+    </pre>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step7: Verify the Solution:</i></h4>
+    <pre><code class="language-maple">
+        <div class="code7">
+        printf("\n=== Results ===\n");
+        printf("-----------------\n");
+        printf("Recovered secret vector (Gaussian elimination): %a\n", convert(s1[1..n,n+1], list));
+        if Equal(s1[1..n,n+1] mod q, s) then
+            printf("Verification: Success! Recovered s matches the original.\n");
+        else
+            printf("Verification: Failed. Try increasing m or reducing noise.\n");
+        end if;
+        </div>
+        </code>
+    </pre>
+    </pre>
+    <h4 style="color:style="color:#CCCCCC;"><i>Step6(ii): Solve for the Secret Vector(Using Lattice Reduction):</i></h4>
+    <pre><code class="language-maple">
+        <div class="code8">
+        with(IntegerRelations):
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Reducing M to new Basis in the field Z_q
+        </p>
+        lattice_basis:= LLL(M);
+        <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
+        # Solving the system in the field Z_q
+        </p>
+        Sol:= LinearAlgebra[Modular][LinearSolve](q,lattice_basis, 1);
+        printf("Recovered Secret Vector s (Lattice Reduction LLL): %a\n", convert(Sol[1..n,n+1],list));
+        </div>
+        </code>
+    </pre>
+</section>
+<div class="footpanel1"><a href="#home">Go to Home</a>
+</div>
+<a name="contact"></a>
+<footer>
+    <div class="footer-content">
+        <a href="mailto:mussaratbano025@gmail.com" class="footer-link">
+            <i class="fas fa-envelope"></i>
+            <span>mussaratbano025@gmail.com</span>
+        </a>
+        <a href="https://github.com/MussaratBano" target="_blank" class="footer-link">
+            <i class="fab fa-github"></i>
+            <span>MussaratBano</span>
+        </a>
+    </div>
+</footer>
+
+</body>
+</html>
