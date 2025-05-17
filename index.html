@@ -130,8 +130,9 @@
         A := RandomMatrix(m, n, generator=rand(0..q-1)):
         <p style ="color:rgb(190, 223, 45, 0.936);background-color: white;">
         # Generate small error vector E ∈ {-1, 0, 1}^m (uniform distribution)
+        # Small random noise
         </p>
-        E := RandomVector(m, generator=rand(-1..1)):  # Small random noise
+        E := RandomVector(m, generator=rand(-1..1)):  
         printf("Random Matrix A:\n");
         print(A);
         printf("Error vector E: %a\n",convert(E,list));
