@@ -155,7 +155,7 @@
         # The sample set S = {(a_i, b_i)} is obtained,the goal is to recover 
         # the secret vector s given this set of noisy linear equations.
         </p>
-        printf("\n=== The Sample set S = {(a1,b1),(a2,b2),....,(am,bm)} have elements:  ===\n\n");
+        printf("\n=== The Sample set S = {(a1,b1),(a2,b2),....,(am,bm)} have elements: ===\n\n");
         for i from 1 to m do
             printf("(a%d,b%d)  = (%a, %d)\n",i,i, convert(A[i], list), b[i]):
         end do;
@@ -195,7 +195,7 @@
         # Solving the system in the field Z_q 
         </p>
         s1:= LinearAlgebra[Modular][LinearSolve](q, M, 1);
-        printf("Recovered Secret Vector s (Gaussian Elimination): %a\n",convert(s1[1..n,n+1],list));
+        printf("Recovered Secret Vector s (Gaussian Elimination):%a\n",convert(s1[1..n,n+1],list));
         
         </div>
         </code>
