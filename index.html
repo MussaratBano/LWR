@@ -206,7 +206,7 @@
         <div class="code7">
         printf("\n=== Results ===\n");
         printf("-----------------\n");
-        printf("Recovered secret vector (Gaussian elimination): %a\n", convert(s1[1..n,n+1], list));
+        printf("Recovered secret vector (Gaussian elimination): %a\n", convert(s1[1..n,n+1],list));
         if Equal(s1[1..n,n+1] mod q, s) then
             printf("Verification: Success! Recovered s matches the original.\n");
         else
@@ -228,7 +228,7 @@
         # Solving the system in the field Z_q
         </p>
         Sol:= LinearAlgebra[Modular][LinearSolve](q,lattice_basis, 1);
-        printf("Recovered Secret Vector s (Lattice Reduction LLL): %a\n", convert(Sol[1..n,n+1],list));
+        printf("Recovered Secret Vector s (Lattice Reduction LLL): %a\n",convert(Sol[1..n,n+1],list));
         </div>
         </code>
     </pre>
